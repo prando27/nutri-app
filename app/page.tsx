@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Zap } from "lucide-react";
 import Link from "next/link";
+// import { redirect } from "next/navigation";
 
-export default function LandingPage() {
+export default async function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -39,7 +40,10 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button>Get Started</Button>
+                <Link href="/login">
+                  <Button>Get Started</Button>
+                </Link>
+
                 <Button variant="outline">Learn More</Button>
               </div>
             </div>

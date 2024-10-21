@@ -6,25 +6,41 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { signInWithGoogle } from "./actions";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 // import { Google } from "lucide-react";
 
-export default function ContinueWithGooglePage() {
+export default async function ContinueWithGooglePage() {
+  const supabase = createClient();
+  const { data } = await supabase.auth.getUser();
+
+  if (data.user) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
-            Welcome
+            Bem vindo
           </CardTitle>
           <CardDescription className="text-center">
-            Continue with Google to get started
+            Continue com o Google para começar
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
-          <Button className="w-full" variant="outline">
-            {/* <Google className="mr-2 h-4 w-4" /> */}
-            Continue with Google
-          </Button>
+          <form>
+            <Button
+              formAction={signInWithGoogle}
+              className="w-full"
+              variant="outline"
+            >
+              {/* <Google className="mr-2 h-4 w-4" /> */}
+              Continue com o Google
+            </Button>
+          </form>
         </CardContent>
       </Card>
     </div>
